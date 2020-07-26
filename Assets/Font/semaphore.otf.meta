@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 2436eff5f16a9b341832f8c559f892de
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: FontsVectorSemaphoreFlag
+  fontNames:
+  - FontsVectorSemaphoreFlag
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
