@@ -21,30 +21,26 @@ public class mysticmazeScript : MonoBehaviour {
 	public GameObject[] Displays;
 
 	private List<char> MappedLetters = new List<char>();
-	private char[,] Maze = new char[23,23]{
-		{'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W'},
-		{'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W'},
-		{'W',	'W',	'U',	'H',	'U',	'H',	'U',	'H',	'U',	'H',	'U',	'H',	'U',	'H',	'U',	'H',	'U',	'H',	'U',	'H',	'U',	'W',	'W'},
-		{'W',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'W'},
-		{'W',	'W',	'U',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'U',	'W',	'W'},
-		{'W',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'W'},
-		{'W',	'W',	'U',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'U',	'W',	'W'},
-		{'W',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'W'},
-		{'W',	'W',	'U',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'U',	'W',	'W'},
-		{'W',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'W'},
-		{'W',	'W',	'U',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'U',	'W',	'W'},
-		{'W',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'W'},
-		{'W',	'W',	'U',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'U',	'W',	'W'},
-		{'W',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'W'},
-		{'W',	'W',	'U',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'U',	'W',	'W'},
-		{'W',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'W'},
-		{'W',	'W',	'U',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'U',	'W',	'W'},
-		{'W',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'W'},
-		{'W',	'W',	'U',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'U',	'W',	'W'},
-		{'W',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'W'},
-		{'W',	'W',	'U',	'H',	'U',	'H',	'U',	'H',	'U',	'H',	'U',	'H',	'U',	'H',	'U',	'H',	'U',	'H',	'U',	'H',	'U',	'W',	'W'},
-		{'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W'},
-		{'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W'}
+	private char[,] Maze = new char[19,19]{
+		{'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W'},
+		{'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W'},
+		{'W',	'W',	'U',	'H',	'U',	'H',	'U',	'H',	'U',	'H',	'U',	'H',	'U',	'H',	'U',	'H',	'U',	'W',	'W'},
+		{'W',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'W'},
+		{'W',	'W',	'U',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'U',	'W',	'W'},
+		{'W',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'W'},
+		{'W',	'W',	'U',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'U',	'W',	'W'},
+		{'W',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'W'},
+		{'W',	'W',	'U',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'U',	'W',	'W'},
+		{'W',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'W'},
+		{'W',	'W',	'U',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'U',	'W',	'W'},
+		{'W',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'W'},
+		{'W',	'W',	'U',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'U',	'W',	'W'},
+		{'W',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'W'},
+		{'W',	'W',	'U',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'S',	'H',	'U',	'W',	'W'},
+		{'W',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'H',	'W',	'W'},
+		{'W',	'W',	'U',	'H',	'U',	'H',	'U',	'H',	'U',	'H',	'U',	'H',	'U',	'H',	'U',	'H',	'U',	'W',	'W'},
+		{'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W'},
+		{'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W',	'W'}
 	};
 	private int currentR;
 	private int currentC;
@@ -115,8 +111,8 @@ public class mysticmazeScript : MonoBehaviour {
 	}
 
 	void generateMaze(){
-		List<int> SR = new List<int>(new int[] {4,6,8,10,12,14,16,18});
-		List<int> SC = new List<int>(new int[] {4,6,8,10,12,14,16,18});
+		List<int> SR = new List<int>(new int[] {4,6,8,10,12,14});
+		List<int> SC = new List<int>(new int[] {4,6,8,10,12,14});
 		SR.Shuffle();
 		SC.Shuffle();
 
@@ -134,8 +130,8 @@ public class mysticmazeScript : MonoBehaviour {
 
 		int curDr=0,curDc=0;
 		for(;Maze[curDr,curDc]!='U';){
-			curDr = UnityEngine.Random.Range(2,21);
-			curDc = UnityEngine.Random.Range(2,21);
+			curDr = UnityEngine.Random.Range(2,17);
+			curDc = UnityEngine.Random.Range(2,17);
 		}
 		Maze[curDr,curDc]='D';
 
@@ -191,8 +187,8 @@ public class mysticmazeScript : MonoBehaviour {
 			}
 
 			for(;!((Maze[curDr,curDc]=='U'||Maze[curDr,curDc]=='S')&&(Maze[curDr-2,curDc]=='D'||Maze[curDr+2,curDc]=='D'||Maze[curDr,curDc-2]=='D'||Maze[curDr,curDc+2]=='D'));){
-				curDr = UnityEngine.Random.Range(2,21);
-				curDc = UnityEngine.Random.Range(2,21);
+				curDr = UnityEngine.Random.Range(2,17);
+				curDc = UnityEngine.Random.Range(2,17);
 			}
 			Maze[curDr,curDc]='D';
 			List<char> validAdj = new List<char>();
@@ -223,8 +219,8 @@ public class mysticmazeScript : MonoBehaviour {
 			}
 		}
 
-		for(int i=1;i<22;i++){
-			for(int j=1;j<22;j++){
+		for(int i=1;i<18;i++){
+			for(int j=1;j<18;j++){
 				if(Maze[i,j]=='H'){
 					Maze[i,j]='W';
 				}
@@ -232,8 +228,8 @@ public class mysticmazeScript : MonoBehaviour {
 		}
 
 		String Mazerender = "";
-		for(int i=1;i<22;i++){
-			for(int j=1;j<22;j++){
+		for(int i=1;i<18;i++){
+			for(int j=1;j<18;j++){
 				if(Maze[i,j]=='W'){
 					Mazerender+='■';
 				}
