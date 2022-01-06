@@ -362,7 +362,7 @@ public class mysticmazeScript : MonoBehaviour {
 
 		int letterFont = UnityEngine.Random.Range(0,Displays.Length+1);
 
-
+		var pigpenReorder = new int[] { 0, 9, 1, 10, 2, 11, 3, 12, 4, 13, 5, 14, 6, 15, 7, 16, 8, 17, 18, 22, 19, 23, 20, 24, 21, 25 };
 
 		if(letterFont==0){
 			Displays[0].GetComponent<TextMesh>().text = displayedLetter.ToString();
@@ -373,7 +373,8 @@ public class mysticmazeScript : MonoBehaviour {
 			Debug.LogFormat("[Mystic Maze #{0}] Displayed Letter is {1} in {2}.", moduleId, displayedLetter, "Zoni");
 		}
 		else if(letterFont==2){
-			Displays[2].GetComponent<TextMesh>().text = displayedLetter.ToString();
+			// Displays[2].GetComponent<TextMesh>().text = displayedLetter.ToString();
+			Displays[2].GetComponent<TextMesh>().text = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"[Array.IndexOf(pigpenReorder, displayedLetter - 'A')].ToString();
 			Debug.LogFormat("[Mystic Maze #{0}] Displayed Letter is {1} in {2}.", moduleId, displayedLetter, "Pigpen");
 		}
 		else if(letterFont==3){
