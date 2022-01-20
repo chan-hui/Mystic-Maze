@@ -1991,8 +1991,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b49606601dc9604cad5eb02972c20d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audio: {fileID: 114874000942999478}
+  Audio: {fileID: 114874000942999478}
   bomb: {fileID: 114716291754666228}
+  Module: {fileID: 114789099592237548}
   Display: {fileID: 114638350030719942}
   Arrows:
   - {fileID: 114570566486598400}
