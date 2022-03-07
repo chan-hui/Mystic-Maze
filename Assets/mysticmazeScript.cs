@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using KModkit;
 using Rnd = UnityEngine.Random;
+using System.Text.RegularExpressions;
 
 public class mysticmazeScript : MonoBehaviour
 {
@@ -59,8 +60,6 @@ public class mysticmazeScript : MonoBehaviour
     private bool moduleSolved;
     private bool animationPlaying;
     private bool morsePlaying;
-
-    public string TwitchHelpMessage = "Move with !{0} udlr. Press center with !{0} c. You may use spaces in movement and interact string.";
 
     void Awake()
     {
@@ -650,30 +649,29 @@ public class mysticmazeScript : MonoBehaviour
         DisplayKey.GetComponent<Transform>().localScale = new Vector3(0, (float)0.000001, 1);
     }
 
-    public IEnumerator ProcessTwitchCommand(string command)
-    {
-        string[] cutInBlank = command.Split(new char[] { ' ' });
-        List<KMSelectable> whichToPress = new List<KMSelectable>();
+    private string TwitchHelpMessage = "Move with !{0} udlr. Press center with !{0} c. You may use spaces in movement and interact string.";
 
-        for (int i = 0; i < cutInBlank.Length; i++)
+    private IEnumerator ProcessTwitchCommand(string command)
+    {
+        var m = Regex.Match(command, @"^\s*([urdlneswmc,; ]+)\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
+        if (!m.Success)
+            yield break;
+        yield return null;
+        foreach (var ch in m.Groups[1].Value)
         {
-            foreach (char c in cutInBlank[i])
-            {
-                if (c.ToString().Equals("U", StringComparison.InvariantCultureIgnoreCase))
-                    whichToPress.Add(Arrows[0]);
-                if (c.ToString().Equals("D", StringComparison.InvariantCultureIgnoreCase))
-                    whichToPress.Add(Arrows[1]);
-                if (c.ToString().Equals("L", StringComparison.InvariantCultureIgnoreCase))
-                    whichToPress.Add(Arrows[2]);
-                if (c.ToString().Equals("R", StringComparison.InvariantCultureIgnoreCase))
-                    whichToPress.Add(Arrows[3]);
-                if (c.ToString().Equals("C", StringComparison.InvariantCultureIgnoreCase))
-                    whichToPress.Add(Display);
-            }
-        }
-        for (int i = 0; i < whichToPress.Count(); i++)
-        {
-            whichToPress[i].OnInteract();
+            var c = ch.ToString().ToLowerInvariant();
+            if (c == " " || c == ";" || c == ",")
+                continue;
+            if (c == "n" || c == "u")
+                Arrows[0].OnInteract();
+            else if (c == "e" || c == "r")
+                Arrows[3].OnInteract();
+            else if (c == "s" || c == "d")
+                Arrows[1].OnInteract();
+            else if (c == "w" || c == "l")
+                Arrows[2].OnInteract();
+            else if (c == "m" || c == "c")
+                Display.OnInteract();
             while (animationPlaying)
                 yield return null;
             yield return new WaitForSeconds(0.1f);
