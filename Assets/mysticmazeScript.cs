@@ -60,6 +60,7 @@ public class mysticmazeScript : MonoBehaviour
     private bool moduleSolved;
     private bool animationPlaying;
     private bool morsePlaying;
+    private string Mazerender;
 
     void Awake()
     {
@@ -111,7 +112,7 @@ public class mysticmazeScript : MonoBehaviour
             MappedLetters.Add((char)initialLetter);
         }
 
-        String index = "";
+        string index = "";
         for (int i = 1; i < MappedLetters.Count(); i++)
             index += MappedLetters[i];
 
@@ -225,7 +226,7 @@ public class mysticmazeScript : MonoBehaviour
                 if (Maze[i, j] == 'H')
                     Maze[i, j] = 'W';
 
-        String Mazerender = "";
+        Mazerender = "";
         for (int i = 1; i < 18; i++)
         {
             for (int j = 1; j < 18; j++)
@@ -460,7 +461,7 @@ public class mysticmazeScript : MonoBehaviour
             if (Maze[currentR - 1, currentC] == 'W')
             {
                 Module.HandleStrike();
-                Debug.LogFormat("[Mystic Maze #{0}] Strike! You ran into wall.", moduleId);
+                Debug.LogFormat("[Mystic Maze #{0}] Strike! You ran into a wall when attempting to move up.", moduleId);
             }
             else
             {
@@ -474,7 +475,7 @@ public class mysticmazeScript : MonoBehaviour
             if (Maze[currentR + 1, currentC] == 'W')
             {
                 Module.HandleStrike();
-                Debug.LogFormat("[Mystic Maze #{0}] Strike! You ran into wall.", moduleId);
+                Debug.LogFormat("[Mystic Maze #{0}] Strike! You ran into a wall when attempting to move down.", moduleId);
             }
             else
             {
@@ -488,7 +489,7 @@ public class mysticmazeScript : MonoBehaviour
             if (Maze[currentR, currentC - 1] == 'W')
             {
                 Module.HandleStrike();
-                Debug.LogFormat("[Mystic Maze #{0}] Strike! You ran into wall.", moduleId);
+                Debug.LogFormat("[Mystic Maze #{0}] Strike! You ran into a wall when attempting to move left.", moduleId);
             }
             else
             {
@@ -502,7 +503,7 @@ public class mysticmazeScript : MonoBehaviour
             if (Maze[currentR, currentC + 1] == 'W')
             {
                 Module.HandleStrike();
-                Debug.LogFormat("[Mystic Maze #{0}] Strike! You ran into wall.", moduleId);
+                Debug.LogFormat("[Mystic Maze #{0}] Strike! You ran into a wall when attempting to move right.", moduleId);
             }
             else
             {
@@ -676,5 +677,159 @@ public class mysticmazeScript : MonoBehaviour
                 yield return null;
             yield return new WaitForSeconds(0.1f);
         }
+    }
+
+    struct QueueItem
+    {
+        public int Cell;
+        public int Parent;
+        public int Direction;
+        public QueueItem(int cell, int parent, int dir)
+        {
+            Cell = cell;
+            Parent = parent;
+            Direction = dir;
+        }
+    }
+
+    private IEnumerator TwitchHandleForcedSolve()
+    {
+        var maze = Mazerender.Split('\n').Join("");
+        if (!pickedKey1)
+        {
+            var current = (currentR - 1) * 17 + (currentC - 1);
+            var visited = new Dictionary<int, QueueItem>();
+            var q = new Queue<QueueItem>();
+            var sol = maze.IndexOf('K');
+            q.Enqueue(new QueueItem(current, -1, 0));
+            while (q.Count > 0)
+            {
+                var qi = q.Dequeue();
+                if (visited.ContainsKey(qi.Cell))
+                    continue;
+                visited[qi.Cell] = qi;
+                if (qi.Cell == sol)
+                    break;
+                if (maze[qi.Cell - 17] != '■')
+                    q.Enqueue(new QueueItem(qi.Cell - 34, qi.Cell, 0));
+                if (maze[qi.Cell + 1] != '■')
+                    q.Enqueue(new QueueItem(qi.Cell + 2, qi.Cell, 3));
+                if (maze[qi.Cell + 17] != '■')
+                    q.Enqueue(new QueueItem(qi.Cell + 34, qi.Cell, 1));
+                if (maze[qi.Cell - 1] != '■')
+                    q.Enqueue(new QueueItem(qi.Cell - 2, qi.Cell, 2));
+            }
+            var r = sol;
+            var path = new List<int>();
+            while (true)
+            {
+                var nr = visited[r];
+                if (nr.Parent == -1)
+                    break;
+                path.Add(nr.Direction);
+                r = nr.Parent;
+            }
+            for (int i = path.Count - 1; i >= 0; i--)
+            {
+                Arrows[path[i]].OnInteract();
+                while (animationPlaying)
+                    yield return null;
+                yield return new WaitForSeconds(0.1f);
+            }
+            Display.OnInteract();
+            while (animationPlaying)
+                yield return null;
+        }
+        if (!pickedKey2)
+        {
+            var current = (currentR - 1) * 17 + (currentC - 1);
+            var visited = new Dictionary<int, QueueItem>();
+            var q = new Queue<QueueItem>();
+            var sol = maze.IndexOf('Y');
+            q.Enqueue(new QueueItem(current, -1, 0));
+            while (q.Count > 0)
+            {
+                var qi = q.Dequeue();
+                if (visited.ContainsKey(qi.Cell))
+                    continue;
+                visited[qi.Cell] = qi;
+                if (qi.Cell == sol)
+                    break;
+                if (maze[qi.Cell - 17] != '■')
+                    q.Enqueue(new QueueItem(qi.Cell - 34, qi.Cell, 0));
+                if (maze[qi.Cell + 1] != '■')
+                    q.Enqueue(new QueueItem(qi.Cell + 2, qi.Cell, 3));
+                if (maze[qi.Cell + 17] != '■')
+                    q.Enqueue(new QueueItem(qi.Cell + 34, qi.Cell, 1));
+                if (maze[qi.Cell - 1] != '■')
+                    q.Enqueue(new QueueItem(qi.Cell - 2, qi.Cell, 2));
+            }
+            var r = sol;
+            var path = new List<int>();
+            while (true)
+            {
+                var nr = visited[r];
+                if (nr.Parent == -1)
+                    break;
+                path.Add(nr.Direction);
+                r = nr.Parent;
+            }
+            for (int i = path.Count - 1; i >= 0; i--)
+            {
+                Arrows[path[i]].OnInteract();
+                while (animationPlaying)
+                    yield return null;
+                yield return new WaitForSeconds(0.1f);
+            }
+            Display.OnInteract();
+            while (animationPlaying)
+                yield return null;
+        }
+        if (pickedKey1 && pickedKey2)
+        {
+            var current = (currentR - 1) * 17 + (currentC - 1);
+            var visited = new Dictionary<int, QueueItem>();
+            var q = new Queue<QueueItem>();
+            var sol = maze.IndexOf('E');
+            q.Enqueue(new QueueItem(current, -1, 0));
+            while (q.Count > 0)
+            {
+                var qi = q.Dequeue();
+                if (visited.ContainsKey(qi.Cell))
+                    continue;
+                visited[qi.Cell] = qi;
+                if (qi.Cell == sol)
+                    break;
+                if (maze[qi.Cell - 17] != '■')
+                    q.Enqueue(new QueueItem(qi.Cell - 34, qi.Cell, 0));
+                if (maze[qi.Cell + 1] != '■')
+                    q.Enqueue(new QueueItem(qi.Cell + 2, qi.Cell, 3));
+                if (maze[qi.Cell + 17] != '■')
+                    q.Enqueue(new QueueItem(qi.Cell + 34, qi.Cell, 1));
+                if (maze[qi.Cell - 1] != '■')
+                    q.Enqueue(new QueueItem(qi.Cell - 2, qi.Cell, 2));
+            }
+            var r = sol;
+            var path = new List<int>();
+            while (true)
+            {
+                var nr = visited[r];
+                if (nr.Parent == -1)
+                    break;
+                path.Add(nr.Direction);
+                r = nr.Parent;
+            }
+            for (int i = path.Count - 1; i >= 0; i--)
+            {
+                Arrows[path[i]].OnInteract();
+                while (animationPlaying)
+                    yield return null;
+                yield return new WaitForSeconds(0.1f);
+            }
+            Display.OnInteract();
+            while (animationPlaying)
+                yield return null;
+        }
+        yield break;
     }
 }
