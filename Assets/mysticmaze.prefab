@@ -2016,8 +2016,6 @@ MonoBehaviour:
   - {fileID: 1716710088623638}
   - {fileID: 1211994728147430}
   - {fileID: 1537056312425552}
-  TwitchHelpMessage: Move with !{0} udlr. Press center with !{0} c. You may use spaces
-    in movement and interact string.
 --- !u!114 &114857547503279586
 MonoBehaviour:
   m_ObjectHideFlags: 1
