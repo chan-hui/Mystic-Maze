@@ -829,7 +829,7 @@ public class mysticmazeScript : MonoBehaviour
                 yield return new WaitForSeconds(0.1f);
             }
             Display.OnInteract();
-            while (animationPlaying)
+            while (animationPlaying && !moduleSolved)
                 yield return null;
         }
         yield break;
