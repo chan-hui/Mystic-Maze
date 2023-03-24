@@ -650,7 +650,9 @@ public class mysticmazeScript : MonoBehaviour
         DisplayKey.GetComponent<Transform>().localScale = new Vector3(0, (float)0.000001, 1);
     }
 
-    private string TwitchHelpMessage = "Move with !{0} udlr. Press center with !{0} c. You may use spaces in movement and interact string.";
+#pragma warning disable 0414
+    private string TwitchHelpMessage = "Move using either !{0} U R D L or !{0} N E S W. Press the center screen using either !{0} C or !{0} M. Commands can be chained with spaces, semicolons, or commas.";
+#pragma warning restore 0414
 
     private IEnumerator ProcessTwitchCommand(string command)
     {
@@ -827,7 +829,7 @@ public class mysticmazeScript : MonoBehaviour
                 yield return new WaitForSeconds(0.1f);
             }
             Display.OnInteract();
-            while (animationPlaying)
+            while (animationPlaying && !moduleSolved)
                 yield return null;
         }
         yield break;
