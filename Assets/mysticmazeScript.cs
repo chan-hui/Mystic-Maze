@@ -23,29 +23,56 @@ public class mysticmazeScript : MonoBehaviour
     public Material[] keyMat;
 
     public GameObject[] Displays;
+    public int MazeSize = 8;
 
     private List<char> MappedLetters = new List<char>();
-    private char[,] Maze = new char[19, 19]{
-        {'W',   'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W'},
-        {'W',   'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W'},
-        {'W',   'W',    'U',    'H',    'U',    'H',    'U',    'H',    'U',    'H',    'U',    'H',    'U',    'H',    'U',    'H',    'U',    'W',    'W'},
-        {'W',   'W',    'H',    'W',    'H',    'W',    'H',    'W',    'H',    'W',    'H',    'W',    'H',    'W',    'H',    'W',    'H',    'W',    'W'},
-        {'W',   'W',    'U',    'H',    'S',    'H',    'S',    'H',    'S',    'H',    'S',    'H',    'S',    'H',    'S',    'H',    'U',    'W',    'W'},
-        {'W',   'W',    'H',    'W',    'H',    'W',    'H',    'W',    'H',    'W',    'H',    'W',    'H',    'W',    'H',    'W',    'H',    'W',    'W'},
-        {'W',   'W',    'U',    'H',    'S',    'H',    'S',    'H',    'S',    'H',    'S',    'H',    'S',    'H',    'S',    'H',    'U',    'W',    'W'},
-        {'W',   'W',    'H',    'W',    'H',    'W',    'H',    'W',    'H',    'W',    'H',    'W',    'H',    'W',    'H',    'W',    'H',    'W',    'W'},
-        {'W',   'W',    'U',    'H',    'S',    'H',    'S',    'H',    'S',    'H',    'S',    'H',    'S',    'H',    'S',    'H',    'U',    'W',    'W'},
-        {'W',   'W',    'H',    'W',    'H',    'W',    'H',    'W',    'H',    'W',    'H',    'W',    'H',    'W',    'H',    'W',    'H',    'W',    'W'},
-        {'W',   'W',    'U',    'H',    'S',    'H',    'S',    'H',    'S',    'H',    'S',    'H',    'S',    'H',    'S',    'H',    'U',    'W',    'W'},
-        {'W',   'W',    'H',    'W',    'H',    'W',    'H',    'W',    'H',    'W',    'H',    'W',    'H',    'W',    'H',    'W',    'H',    'W',    'W'},
-        {'W',   'W',    'U',    'H',    'S',    'H',    'S',    'H',    'S',    'H',    'S',    'H',    'S',    'H',    'S',    'H',    'U',    'W',    'W'},
-        {'W',   'W',    'H',    'W',    'H',    'W',    'H',    'W',    'H',    'W',    'H',    'W',    'H',    'W',    'H',    'W',    'H',    'W',    'W'},
-        {'W',   'W',    'U',    'H',    'S',    'H',    'S',    'H',    'S',    'H',    'S',    'H',    'S',    'H',    'S',    'H',    'U',    'W',    'W'},
-        {'W',   'W',    'H',    'W',    'H',    'W',    'H',    'W',    'H',    'W',    'H',    'W',    'H',    'W',    'H',    'W',    'H',    'W',    'W'},
-        {'W',   'W',    'U',    'H',    'U',    'H',    'U',    'H',    'U',    'H',    'U',    'H',    'U',    'H',    'U',    'H',    'U',    'W',    'W'},
-        {'W',   'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W'},
-        {'W',   'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W',    'W'}
+    private char[,] Maze;
+
+
+    private Dictionary<string, int> dirToNum = new Dictionary<string, int>()
+    {
+        { "U", 1 }, { "D", 2 }, { "L", 3 }, { "R", 4 }, { "UD", 5 }, { "UL", 6 }, { "UR", 7 }, { "DL", 8 }, { "DR", 9 },
+        { "LR", 10 }, { "UDL", 11 }, { "UDR", 12 }, { "ULR", 13 }, { "DLR", 14 }, { "UDLR", 15 }
     };
+
+    private Dictionary<string, string> engToKor = new Dictionary<string, string>()
+    {
+        { "A", "ㅁ" }, { "B", "ㅠ" }, { "C", "ㅊ" }, { "D", "ㅇ" }, { "E", "ㄷ" }, { "F", "ㄹ" }, { "G", "ㅎ" }, { "H", "ㅗ" },
+        { "I", "ㅑ" }, { "J", "ㅓ" }, { "K", "ㅏ" }, { "L", "ㅣ" }, { "M", "ㅡ" },
+        { "N", "ㅜ" }, { "O", "ㅐ" }, { "P", "ㅔ" }, { "Q", "ㅂ" }, { "R", "ㄱ" }, { "S", "ㄴ" }, { "T", "ㅅ" }, { "U", "ㅕ" },
+        { "V", "ㅍ" }, { "W", "ㅈ" }, { "X", "ㅌ" }, { "Y", "ㅛ" }, { "Z", "ㅋ" }
+    };
+
+    private Dictionary<string, string> engToMorse = new Dictionary<string, string>()
+    {
+        { "A", ".-X" },
+        { "B", "-...X" },
+        { "C", "-.-.X" },
+        { "D", "-..X" },
+        { "E", ".X" },
+        { "F", "..-.X" },
+        { "G", "--.X" },
+        { "H", "....X" },
+        { "I", "..X" },
+        { "J", ".---X" },
+        { "K", "-.-X" },
+        { "L", ".-..X" },
+        { "M", "--X" },
+        { "N", "-.X" },
+        { "O", "---X" },
+        { "P", ".--.X" },
+        { "Q", "--.-X" },
+        { "R", ".-.X" },
+        { "S", "...X" },
+        { "T", "-X" },
+        { "U", "..-X" },
+        { "V", "...-X" },
+        { "W", ".--X" },
+        { "X", "-..-X" },
+        { "Y", "-.--X" },
+        { "Z", "--..X" }
+    };
+
     private int currentR;
     private int currentC;
 
@@ -66,7 +93,11 @@ public class mysticmazeScript : MonoBehaviour
     {
         moduleId = moduleIdCounter++;
 
-        Display.OnInteract += delegate () { displayPress(); return false; };
+        Display.OnInteract += delegate()
+        {
+            displayPress();
+            return false;
+        };
         foreach (KMSelectable arrow in Arrows)
         {
             KMSelectable pressedArrow = arrow;
@@ -74,7 +105,11 @@ public class mysticmazeScript : MonoBehaviour
             {
                 if (pressedArrow == Arrows[i])
                 {
-                    arrow.OnInteract += delegate () { arrowPress(pressedArrow, i); return false; };
+                    arrow.OnInteract += delegate()
+                    {
+                        arrowPress(pressedArrow, i);
+                        return false;
+                    };
                     break;
                 }
             }
@@ -85,6 +120,7 @@ public class mysticmazeScript : MonoBehaviour
     {
         initialMapping();
         generateMaze();
+        settingMaze();
         updateDisplay();
     }
 
@@ -109,6 +145,7 @@ public class mysticmazeScript : MonoBehaviour
                 for (; initialLetter > 'Z';)
                     initialLetter -= 26;
             }
+
             MappedLetters.Add((char)initialLetter);
         }
 
@@ -116,13 +153,41 @@ public class mysticmazeScript : MonoBehaviour
         for (int i = 1; i < MappedLetters.Count(); i++)
             index += MappedLetters[i];
 
-        Debug.LogFormat("[Mystic Maze #{0}] Initial Character is {1}, Mapped Characters are {2}.", moduleId, MappedLetters[0], index);
+        Debug.LogFormat("[Mystic Maze #{0}] Initial Character is {1}, Mapped Characters are {2}.", moduleId,
+            MappedLetters[0], index);
     }
 
     void generateMaze()
     {
-        List<int> SR = new List<int>(new int[] { 4, 6, 8, 10, 12, 14 });
-        List<int> SC = new List<int>(new int[] { 4, 6, 8, 10, 12, 14 });
+        Maze = new char[MazeSize * 2 + 3, MazeSize * 2 + 3];
+        for (int i = 0; i < MazeSize * 2 + 3; i++)
+        {
+            for (int j = 0; j < MazeSize * 2 + 3; j++)
+            {
+                if (i < 2 || i > MazeSize * 2 || j < 2 || j > MazeSize * 2 || (i % 2 == 1 && j % 2 == 1))
+                {
+                    Maze[i, j] = 'W';
+                }
+                else if (i % 2 == 1 || j % 2 == 1)
+                {
+                    Maze[i, j] = 'H';
+                }
+                else if (i == 2 || i == MazeSize * 2 || j == 2 || j == MazeSize * 2)
+                {
+                    Maze[i, j] = 'U';
+                }
+                else
+                {
+                    Maze[i, j] = 'S';
+                }
+            }
+        }
+    }
+
+    void settingMaze()
+    {
+        List<int> SR = new List<int>(), SC = new List<int>();
+        for (int i = 4; i < MazeSize * 2; i += 2) {SR.Add(i); SC.Add(i);}
         SR.Shuffle();
         SC.Shuffle();
 
@@ -141,14 +206,15 @@ public class mysticmazeScript : MonoBehaviour
         int curDr = 0, curDc = 0;
         for (; Maze[curDr, curDc] != 'U';)
         {
-            curDr = Rnd.Range(2, 17);
-            curDc = Rnd.Range(2, 17);
+            curDr = Rnd.Range(2, MazeSize * 2 + 1);
+            curDc = Rnd.Range(2, MazeSize * 2 + 1);
         }
+
         Maze[curDr, curDc] = 'D';
 
         for (int lp = 0; lp < 100; lp++)
         {
-            for (; ; )
+            for (;;)
             {
                 List<char> validMove = new List<char>();
                 if (!(Maze[curDr - 1, curDc] == 'P' || Maze[curDr - 1, curDc] == 'W' || Maze[curDr - 2, curDc] == 'D'))
@@ -168,18 +234,21 @@ public class mysticmazeScript : MonoBehaviour
                     Maze[curDr - 2, curDc] = 'D';
                     curDr -= 2;
                 }
+
                 if (Move == 'D')
                 {
                     Maze[curDr + 1, curDc] = 'P';
                     Maze[curDr + 2, curDc] = 'D';
                     curDr += 2;
                 }
+
                 if (Move == 'L')
                 {
                     Maze[curDr, curDc - 1] = 'P';
                     Maze[curDr, curDc - 2] = 'D';
                     curDc -= 2;
                 }
+
                 if (Move == 'R')
                 {
                     Maze[curDr, curDc + 1] = 'P';
@@ -195,11 +264,14 @@ public class mysticmazeScript : MonoBehaviour
             if (mazefinishVar)
                 break;
 
-            for (; !((Maze[curDr, curDc] == 'U' || Maze[curDr, curDc] == 'S') && (Maze[curDr - 2, curDc] == 'D' || Maze[curDr + 2, curDc] == 'D' || Maze[curDr, curDc - 2] == 'D' || Maze[curDr, curDc + 2] == 'D'));)
+            for (;
+                 !((Maze[curDr, curDc] == 'U' || Maze[curDr, curDc] == 'S') && (Maze[curDr - 2, curDc] == 'D' ||
+                     Maze[curDr + 2, curDc] == 'D' || Maze[curDr, curDc - 2] == 'D' || Maze[curDr, curDc + 2] == 'D'));)
             {
-                curDr = Rnd.Range(2, 17);
-                curDc = Rnd.Range(2, 17);
+                curDr = Rnd.Range(2, MazeSize * 2 + 1);
+                curDc = Rnd.Range(2, MazeSize * 2 + 1);
             }
+
             Maze[curDr, curDc] = 'D';
             List<char> validAdj = new List<char>();
             if (Maze[curDr - 2, curDc] == 'D')
@@ -221,15 +293,15 @@ public class mysticmazeScript : MonoBehaviour
                 Maze[curDr, curDc + 1] = 'P';
         }
 
-        for (int i = 1; i < 18; i++)
-            for (int j = 1; j < 18; j++)
-                if (Maze[i, j] == 'H')
-                    Maze[i, j] = 'W';
+        for (int i = 1; i < MazeSize * 2 + 2; i++)
+        for (int j = 1; j < MazeSize * 2 + 2; j++)
+            if (Maze[i, j] == 'H')
+                Maze[i, j] = 'W';
 
         Mazerender = "";
-        for (int i = 1; i < 18; i++)
+        for (int i = 1; i < MazeSize * 2 + 2; i++)
         {
-            for (int j = 1; j < 18; j++)
+            for (int j = 1; j < MazeSize * 2 + 2; j++)
             {
                 if (Maze[i, j] == 'W')
                     Mazerender += '■';
@@ -238,9 +310,13 @@ public class mysticmazeScript : MonoBehaviour
                 if (Maze[i, j] == 'I' || Maze[i, j] == 'K' || Maze[i, j] == 'Y' || Maze[i, j] == 'E')
                     Mazerender += Maze[i, j];
             }
+
             Mazerender += '\n';
         }
-        Debug.LogFormat("[Mystic Maze #{0}] Generated Maze is \n{1}(I = Initial position, K = Key 1, Y = keY 2, E = Exit)", moduleId, Mazerender);
+
+        Debug.LogFormat(
+            "[Mystic Maze #{0}] Generated Maze is \n{1}(I = Initial position, K = Key 1, Y = keY 2, E = Exit)",
+            moduleId, Mazerender);
     }
 
     void MazeMaster(int X, int Y, String door, bool onedoor)
@@ -262,22 +338,33 @@ public class mysticmazeScript : MonoBehaviour
             if (ranRot == 0)
             {
                 Maze[X - 1, Y] = 'P';
-                Maze[X + 1, Y] = 'W'; Maze[X, Y - 1] = 'W'; Maze[X, Y + 1] = 'W';
+                Maze[X + 1, Y] = 'W';
+                Maze[X, Y - 1] = 'W';
+                Maze[X, Y + 1] = 'W';
             }
+
             if (ranRot == 1)
             {
                 Maze[X + 1, Y] = 'P';
-                Maze[X - 1, Y] = 'W'; Maze[X, Y - 1] = 'W'; Maze[X, Y + 1] = 'W';
+                Maze[X - 1, Y] = 'W';
+                Maze[X, Y - 1] = 'W';
+                Maze[X, Y + 1] = 'W';
             }
+
             if (ranRot == 2)
             {
                 Maze[X, Y - 1] = 'P';
-                Maze[X + 1, Y] = 'W'; Maze[X - 1, Y] = 'W'; Maze[X, Y + 1] = 'W';
+                Maze[X + 1, Y] = 'W';
+                Maze[X - 1, Y] = 'W';
+                Maze[X, Y + 1] = 'W';
             }
+
             if (ranRot == 3)
             {
                 Maze[X, Y + 1] = 'P';
-                Maze[X + 1, Y] = 'W'; Maze[X - 1, Y] = 'W'; Maze[X, Y - 1] = 'W';
+                Maze[X + 1, Y] = 'W';
+                Maze[X - 1, Y] = 'W';
+                Maze[X, Y - 1] = 'W';
             }
         }
     }
@@ -304,36 +391,7 @@ public class mysticmazeScript : MonoBehaviour
                 validDir += "L";
             if (Maze[currentR, currentC + 1] == 'P')
                 validDir += "R";
-            if (validDir == "U")
-                displayedLetter = MappedLetters[1];
-            if (validDir == "D")
-                displayedLetter = MappedLetters[2];
-            if (validDir == "L")
-                displayedLetter = MappedLetters[3];
-            if (validDir == "R")
-                displayedLetter = MappedLetters[4];
-            if (validDir == "UD")
-                displayedLetter = MappedLetters[5];
-            if (validDir == "UL")
-                displayedLetter = MappedLetters[6];
-            if (validDir == "UR")
-                displayedLetter = MappedLetters[7];
-            if (validDir == "DL")
-                displayedLetter = MappedLetters[8];
-            if (validDir == "DR")
-                displayedLetter = MappedLetters[9];
-            if (validDir == "LR")
-                displayedLetter = MappedLetters[10];
-            if (validDir == "UDL")
-                displayedLetter = MappedLetters[11];
-            if (validDir == "UDR")
-                displayedLetter = MappedLetters[12];
-            if (validDir == "ULR")
-                displayedLetter = MappedLetters[13];
-            if (validDir == "DLR")
-                displayedLetter = MappedLetters[14];
-            if (validDir == "UDLR")
-                displayedLetter = MappedLetters[15];
+            displayedLetter = MappedLetters[dirToNum[validDir]];
         }
 
         ClearDisplay();
@@ -362,8 +420,8 @@ public class mysticmazeScript : MonoBehaviour
         }
         else if (letterFont == 4)
         {
-            Displays[4].GetComponent<TextMesh>().text = displayedLetter.ToString();
-            Debug.LogFormat("[Mystic Maze #{0}] Displayed Letter is {1} in {2}.", moduleId, displayedLetter, "R'lyehian");
+            Displays[4].GetComponent<TextMesh>().text = engToKor[displayedLetter.ToString()];
+            Debug.LogFormat("[Mystic Maze #{0}] Displayed Letter is {1} in {2}.", moduleId, displayedLetter, "Korean");
         }
         else if (letterFont == 5)
         {
@@ -384,34 +442,7 @@ public class mysticmazeScript : MonoBehaviour
 
     IEnumerator Morse(string received)
     {
-        string convMorse = "";
-        if (received == "A") { convMorse = ".-X"; }
-        if (received == "B") { convMorse = "-...X"; }
-        if (received == "C") { convMorse = "-.-.X"; }
-        if (received == "D") { convMorse = "-..X"; }
-        if (received == "E") { convMorse = ".X"; }
-        if (received == "F") { convMorse = "..-.X"; }
-        if (received == "G") { convMorse = "--.X"; }
-        if (received == "H") { convMorse = "....X"; }
-        if (received == "I") { convMorse = "..X"; }
-        if (received == "J") { convMorse = ".---X"; }
-        if (received == "K") { convMorse = "-.-X"; }
-        if (received == "L") { convMorse = ".-..X"; }
-        if (received == "M") { convMorse = "--X"; }
-        if (received == "N") { convMorse = "-.X"; }
-        if (received == "O") { convMorse = "---X"; }
-        if (received == "P") { convMorse = ".--.X"; }
-        if (received == "Q") { convMorse = "--.-X"; }
-        if (received == "R") { convMorse = ".-.X"; }
-        if (received == "S") { convMorse = "...X"; }
-        if (received == "T") { convMorse = "-X"; }
-        if (received == "U") { convMorse = "..-X"; }
-        if (received == "V") { convMorse = "...-X"; }
-        if (received == "W") { convMorse = ".--X"; }
-        if (received == "X") { convMorse = "-..-X"; }
-        if (received == "Y") { convMorse = "-.--X"; }
-        if (received == "Z") { convMorse = "--..X"; }
-
+        string convMorse = engToMorse[received];
         if (morsePlaying)
         {
             foreach (char c in convMorse)
@@ -648,6 +679,7 @@ public class mysticmazeScript : MonoBehaviour
             Displays[i].GetComponent<TextMesh>().text = "";
         }
         morsePlaying = false;
+        Display.GetComponent<MeshRenderer>().material = morseMat[0];
         DisplayMove.GetComponent<TextMesh>().text = "";
         DisplayKey.GetComponent<Transform>().localScale = new Vector3(0, (float)0.000001, 1);
     }

@@ -1,7 +1,23 @@
-/* Manual font */
+/* Primary font used by manuals */
 @font-face {
-  font-family: 'Special Elite';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Special Elite'), local('SpecialElite-Regular'), url(../font/SpecialElite.ttf);
+    font-family: 'Special Elite';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Special Elite'), local('SpecialElite-Regular'), url(../font/SpecialElite.ttf);
+}
+
+/* Mystic Maze */
+@font-face {
+    font-family: 'MMKorean';
+    src: url('../font/MMKorean.ttf');
+}
+
+@font-face {
+    font-family: 'Lombax';
+    src: url('../font/lombax.ttf');
+}
+
+@font-face {
+    font-family: 'Zoni';
+    src: url('../font/zoni.ttf');
 }

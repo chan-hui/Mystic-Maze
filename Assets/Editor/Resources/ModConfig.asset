@@ -14,9 +14,9 @@ MonoBehaviour:
   id: mysticmaze
   title: Mystic Maze
   author: Piissii
-  description: "Mystic Maze 1.10.1\nit's not mystic, it's ridiculous maze.\r\n\r\nThis
+  description: "Mystic Maze 2.0\nit's not mystic, it's ridiculous maze.\r\n\r\nThis
     module has TP-Support.\r\n\r\nManual available here:\r\nhttps://ktane.timwi.de/HTML/Mystic%20Maze.html\r\n\r\n\r\n\r\nModule
     ID: mysticmaze\r\nCreated by: Piissii"
-  version: 1.10.1
+  version: 2.0
   outputFolder: build
-  previewImage: {fileID: 2800000, guid: 77f1338cc74749f4db20c778713e443f, type: 3}
+  previewImage: {fileID: 2800000, guid: 10bd91752fffcf543ab45d31b32ad673, type: 3}
