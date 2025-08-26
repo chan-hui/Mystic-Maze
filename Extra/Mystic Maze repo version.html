@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)https://ktane.timwi.de/HTML/Mystic%20Maze.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="initial-scale=1">
+    <title>Mystic Maze — Keep Talking and Nobody Explodes Module</title>
+    <link rel="stylesheet" type="text/css" href="./Mystic Maze repo version_files/font.css">
+    <link rel="stylesheet" type="text/css" href="./Mystic Maze repo version_files/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./Mystic Maze repo version_files/main.css">
+    <link rel="stylesheet" type="text/css" href="./Mystic Maze repo version_files/Mystic Maze.css">
+    <script src="./Mystic Maze repo version_files/ktane-utils.js.다운로드"></script><script src="./Mystic Maze repo version_files/jquery.3.7.0.min.js.다운로드"></script>
+</head>
+<body class="multipage">
+    <div class="section">
+        <div class="page page-bg-01">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title">Mystic Maze</span>
+            </div>
+            <div class="page-content">
+                <img src="./Mystic Maze repo version_files/Mystic Maze.svg" class="diagram">
+                <h2>On the Subject of Mystic Maze</h2>
+                <p class="flavour-text">Ultimate Bamboozling Cruel Faulty Not Maze³-125 [3].</p>
+
+                <ul>
+                    <li>On the module there are four directional arrows and a large display in the center.</li>
+                    <li>The arrows can be used to move in a certain 8×8 maze. This will be explained later.</li>
+                    <li>A character will be shown in the display to indicate which cell are you in. This will also be explained later.</li>
+                    <li>To solve the module, move to the exit after collecting two keys that are placed somewhere around the maze.</li>
+                    <li>A strike will be given if you move into a wall or interact with the exit without picking up all two keys in the maze. Interacting with a cell that doesn’t contain a key or the exit will occur a strike as well.</li>
+                </ul>
+
+                <h3>Character Mapping</h3>
+                <p>In each cell, there will be a letter that determines the position of the walls in that cell. To determine which cells have which walls, follow the steps below:</p>
+
+                <ul>
+                    <li>Take the first character of the serial number. Convert it to its alphabetic position if it’s a letter (A = 1, B = 2, etc.) </li>
+                    <li>Shift that many times forward through the alphabet, starting from the initially displayed letter.</li>
+                    <li>The letter landed on will be mapped to the first cell in the diagram below.</li>
+                    <li>To obtain the next character, start from the previously mapped letter, and shift forward an amount equal to the next character in the serial number, looping around if necessary. Map this character to the next unmapped cell in the diagram. Repeat this process until all cells in the below diagram have been mapped to a letter.</li>
+                    <li>While shifting, if the letter landed on is the same as either the initially displayed letter, or any previously mapped letter, shift that letter forward by one in the alphabet until this is no longer the case.</li>
+                    <li>For each cell, solid lines mean walls and dashed lines mean spaces. You can move through dashed lines but not solid lines. The last three cells indicates the first key, the second key, and the exit respectively.</li>
+                </ul>
+                <div class="center-container"><div class="selectables upper">
+                    <div>
+                        <div class="left right down option"></div>
+                        <div class="left up right option"></div>
+                        <div class="up right down option"></div>
+                        <div class="left up down option"></div>
+                        <div class="left right option"></div>
+                        <div class="right down option"></div>
+                        <div class="down left option"></div>
+                        <div class="up right option"></div>
+                        <div class="up left option"></div>
+                    </div>
+                    <div>
+                        <div class="up down option"></div>
+                        <div class="right option"></div>
+                        <div class="left option"></div>
+                        <div class="down option"></div>
+                        <div class="up option"></div>
+                        <div class="option"></div>
+                        <div class="option"><img class="fullwidth" src="./Mystic Maze repo version_files/key1.png"></div>
+                        <div class="option"><img class="fullwidth" src="./Mystic Maze repo version_files/key2.png"></div>
+                        <div class="option"><img class="fullwidth" src="./Mystic Maze repo version_files/exit.svg"></div>
+                    </div>
+                </div></div>
+            </div>
+            <div class="page-footer relative-footer">Page 1 of 3</div>
+        </div>
+        <div class="page page-bg-05">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title">Mystic Maze</span>
+            </div>
+            <div class="page-content">
+                <h3>Maze Specifications</h3>
+
+                <ul>
+                    <li>The outer edges of the maze are covered completely by walls.</li>
+                    <li>The walls, keys, and exit locations are completely randomized.</li>
+                    <li>A wall can separate two spaces orthogonally.</li>
+                    <li>The initial position will always have no walls around it. The cells that contain the keys and the exit always have three walls around it.</li>
+                    <li>The order in which the keys are collected do not matter.</li>
+                    <li><strong>The keys and the exit are never placed in a cell touching the edge of the maze.</strong></li>
+                </ul>
+
+                <h3>Letter Decryption</h3>
+                <p>The displayed letter will be encrypted in one of the following characters below.</p>
+
+                <table>
+                    <tbody><tr>
+                        <th>Lombax</th>
+                        <th class="nohighlight"><table class="lombax no-border centered">
+                            <tbody><tr>
+                                <td><span>A</span><br>A</td>
+                                <td><span>B</span><br>B</td>
+                                <td><span>C</span><br>C</td>
+                                <td><span>D</span><br>D</td>
+                                <td><span>E</span><br>E</td>
+                                <td><span>F</span><br>F</td>
+                                <td><span>G</span><br>G</td>
+                                <td><span>H</span><br>H</td>
+                                <td><span>I</span><br>I</td>
+                                <td><span>J</span><br>J</td>
+                                <td><span>K</span><br>K</td>
+                                <td><span>L</span><br>L</td>
+                                <td><span>M</span><br>M</td>
+                            </tr>
+                            <tr>
+                                <td><span>N</span><br>N</td>
+                                <td><span>O</span><br>O</td>
+                                <td><span>P</span><br>P</td>
+                                <td><span>Q</span><br>Q</td>
+                                <td><span>R</span><br>R</td>
+                                <td><span>S</span><br>S</td>
+                                <td><span>T</span><br>T</td>
+                                <td><span>U</span><br>U</td>
+                                <td><span>V</span><br>V</td>
+                                <td><span>W</span><br>W</td>
+                                <td><span>X</span><br>X</td>
+                                <td><span>Y</span><br>Y</td>
+                                <td><span>Z</span><br>Z</td>
+                            </tr>
+                        </tbody></table></th>
+                    </tr>
+                    <tr>
+                        <th>Zoni</th>
+                        <th class="nohighlight"><table class="zoni no-border centered">
+                            <tbody><tr>
+                                <td><span>A</span><br>A</td>
+                                <td><span>B</span><br>B</td>
+                                <td><span>C</span><br>C</td>
+                                <td><span>D</span><br>D</td>
+                                <td><span>E</span><br>E</td>
+                                <td><span>F</span><br>F</td>
+                                <td><span>G</span><br>G</td>
+                                <td><span>H</span><br>H</td>
+                                <td><span>I</span><br>I</td>
+                                <td><span>J</span><br>J</td>
+                                <td><span>K</span><br>K</td>
+                                <td><span>L</span><br>L</td>
+                                <td><span>M</span><br>M</td>
+                            </tr>
+                            <tr>
+                                <td><span>N</span><br>N</td>
+                                <td><span>O</span><br>O</td>
+                                <td><span>P</span><br>P</td>
+                                <td><span>Q</span><br>Q</td>
+                                <td><span>R</span><br>R</td>
+                                <td><span>S</span><br>S</td>
+                                <td><span>T</span><br>T</td>
+                                <td><span>U</span><br>U</td>
+                                <td><span>V</span><br>V</td>
+                                <td><span>W</span><br>W</td>
+                                <td><span>X</span><br>X</td>
+                                <td><span>Y</span><br>Y</td>
+                                <td><span>Z</span><br>Z</td>
+                            </tr>
+                        </tbody></table></th>
+                    </tr>
+                    <tr>
+                        <th>Pigpen</th>
+                        <th><img style="width: 45%" src="./Mystic Maze repo version_files/pigpen key.png"></th>
+                    </tr>
+                </tbody></table>
+            </div>
+            <div class="page-footer relative-footer">Page 2 of 3</div>
+        </div>
+        <div class="page page-bg-03">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title">Mystic Maze</span>
+            </div>
+            <div class="page-content">
+                <table>
+                    <tbody><tr>
+                        <th>Semaphore</th>
+                        <th>
+                            <table class="semaphore no-border">
+                                <tbody><tr>
+                                    <td><img src="./Mystic Maze repo version_files/Semaphore_Alpha.svg"><br>A</td>
+                                    <td><img src="./Mystic Maze repo version_files/Semaphore_Bravo.svg"><br>B</td>
+                                    <td><img src="./Mystic Maze repo version_files/Semaphore_Charlie.svg"><br>C</td>
+                                    <td><img src="./Mystic Maze repo version_files/Semaphore_Delta.svg"><br>D</td>
+                                    <td><img src="./Mystic Maze repo version_files/Semaphore_Echo.svg"><br>E</td>
+                                    <td><img src="./Mystic Maze repo version_files/Semaphore_Foxtrot.svg"><br>F</td>
+                                    <td><img src="./Mystic Maze repo version_files/Semaphore_Golf.svg"><br>G</td>
+                                    <td><img src="./Mystic Maze repo version_files/Semaphore_Hotel.svg"><br>H</td>
+                                    <td><img src="./Mystic Maze repo version_files/Semaphore_India.svg"><br>I</td>
+                                    <td><img src="./Mystic Maze repo version_files/Semaphore_Juliet.svg"><br>J</td>
+                                    <td><img src="./Mystic Maze repo version_files/Semaphore_Kilo.svg"><br>K</td>
+                                    <td><img src="./Mystic Maze repo version_files/Semaphore_Lima.svg"><br>L</td>
+                                    <td><img src="./Mystic Maze repo version_files/Semaphore_Mike.svg"><br>M</td>
+                                </tr>
+                                <tr>
+                                    <td><img src="./Mystic Maze repo version_files/Semaphore_November.svg"><br>N</td>
+                                    <td><img src="./Mystic Maze repo version_files/Semaphore_Oscar.svg"><br>O</td>
+                                    <td><img src="./Mystic Maze repo version_files/Semaphore_Papa.svg"><br>P</td>
+                                    <td><img src="./Mystic Maze repo version_files/Semaphore_Quebec.svg"><br>Q</td>
+                                    <td><img src="./Mystic Maze repo version_files/Semaphore_Romeo.svg"><br>R</td>
+                                    <td><img src="./Mystic Maze repo version_files/Semaphore_Sierra.svg"><br>S</td>
+                                    <td><img src="./Mystic Maze repo version_files/Semaphore_Tango.svg"><br>T</td>
+                                    <td><img src="./Mystic Maze repo version_files/Semaphore_Uniform.svg"><br>U</td>
+                                    <td><img src="./Mystic Maze repo version_files/Semaphore_Victor.svg"><br>V</td>
+                                    <td><img src="./Mystic Maze repo version_files/Semaphore_Whiskey.svg"><br>W</td>
+                                    <td><img src="./Mystic Maze repo version_files/Semaphore_X-ray.svg"><br>X</td>
+                                    <td><img src="./Mystic Maze repo version_files/Semaphore_Yankee.svg"><br>Y</td>
+                                    <td><img src="./Mystic Maze repo version_files/Semaphore_Zulu.svg"><br>Z</td>
+                                </tr>
+                            </tbody></table>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Korean</th>
+                        <th><div class="vstack">
+                            <span class="aggro">ㅁㅠㅊㅇㄷㄹㅎㅗㅑㅓㅏㅣㅡ</span>
+                            <span class="latin">ABCDEFGHIJKLM</span>
+                            <span class="aggro">ㅜㅐㅔㅂㄱㄴㅅㅕㅍㅈㅌㅛㅋ</span>
+                            <span class="latin">NOPQRSTUVWXYZ</span></div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Binary</th>
+                        <td>
+                            <ul style="text-align: left;">
+                                <li>Convert binary to decimal.</li>
+                                <li>Convert that number to letter(A = 1, B = 2, C = 3, D = ... etc.).</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Morse</th>
+                        <th><img style="width: 80%" src="./Mystic Maze repo version_files/morse-letters.svg"></th>
+                    </tr>
+                </tbody></table>
+            </div>
+            <div class="page-footer relative-footer">Page 3 of 3</div>
+        </div>
+    </div>
+</body>
+</html>
